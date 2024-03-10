@@ -6,7 +6,6 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
 
     return Scaffold(
       body: CustomScrollView(
@@ -71,17 +70,18 @@ class _PosterAndTitle extends StatelessWidget {
               placeholder: AssetImage('assets/loading.gif'), 
               image: NetworkImage('https://via.placeholder.com/200x300'),
               height: 150,
+              fit: BoxFit.cover,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Column(
             children: [
               Text('movie.title',style: textTheme.headlineSmall,overflow: TextOverflow.ellipsis),
               Text('movie.originaltitle',style: textTheme.titleMedium,overflow: TextOverflow.ellipsis),
               Row(
                 children: [
-                  Icon(Icons.star_outline,size: 15,color: Colors.grey),
-                  SizedBox(width: 5),
+                  const Icon(Icons.star_outline,size: 15,color: Colors.grey),
+                  const SizedBox(width: 5),
                   Text('movie.voteAverage',style: textTheme.bodySmall)
                 ],
               )
