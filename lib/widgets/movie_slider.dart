@@ -7,7 +7,7 @@ class MovieSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 260,
+      height: 290,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +25,7 @@ class MovieSlider extends StatelessWidget {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 20,
-                  itemBuilder: (_, int index) => _MoviePoster()))
+                  itemBuilder: (_, index) => _MoviePoster()))
         ],
       ),
     );
@@ -52,7 +52,7 @@ class _MoviePoster extends StatelessWidget {
               ),
             ),
           ),
-          Text('OTRA PELICULA MAS DE MARVEL AJSJAJDAJSDJAS',
+          const Text('OTRA PELICULA MAS DE MARVEL AJSJAJDAJSDJAS',
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2)
