@@ -16,7 +16,7 @@ class DetailsScreen extends StatelessWidget {
           _CustomAppBar(title: movie.title, backdropImg: movie.fullBackdropPath),
           SliverList(
             delegate: SliverChildListDelegate([
-              _PosterAndTitle( posterImg:movie.fullPosterImg, title: movie.title,originalTitle:movie.originalTitle, voteAvg: movie.voteAverage),
+              _PosterAndTitle(movie:movie),
               _Overview(overview: movie.overview),
               CastingCards(movieId: movie.id)
             ]),
@@ -62,12 +62,9 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  final String title;
-  final String originalTitle;
-  final double voteAvg;
-  final String posterImg;
+  final Movie movie;
 
-  const _PosterAndTitle({required this.title, required this.originalTitle, required this.voteAvg, required this.posterImg});
+  const _PosterAndTitle({ required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +75,16 @@ class _PosterAndTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/loading.gif'), 
-              image: NetworkImage(posterImg),
-              height: 150,
-              width: 110,
-              fit: BoxFit.cover,
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/loading.gif'), 
+                image: NetworkImage(movie.fullPosterImg),
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(height: 20),
@@ -93,13 +92,13 @@ class _PosterAndTitle extends StatelessWidget {
             constraints:BoxConstraints(maxWidth: size.width-190),
             child: Column(
               children: [
-                Text(title,style: textTheme.headlineSmall,overflow: TextOverflow.ellipsis, maxLines: 2,textAlign: TextAlign.center),
-                Text(originalTitle,style: textTheme.titleMedium,overflow: TextOverflow.ellipsis,maxLines: 2),
+                Text(movie.title,style: textTheme.headlineSmall,overflow: TextOverflow.ellipsis, maxLines: 2,textAlign: TextAlign.center),
+                Text(movie.originalTitle,style: textTheme.titleMedium,overflow: TextOverflow.ellipsis,maxLines: 2),
                 Row(
                   children: [
                     const Icon(Icons.star_outline,size: 15,color: Colors.grey,),
                     const SizedBox(width: 5),
-                    Text('$voteAvg',style: textTheme.bodySmall)
+                    Text('${movie.voteAverage}',style: textTheme.bodySmall)
                   ],
                 )
               ],
