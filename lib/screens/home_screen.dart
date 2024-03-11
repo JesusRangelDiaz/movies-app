@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:movies_app/provider/movies_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'package:movies_app/search/search_delegate.dart';
+
 import 'package:movies_app/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,12 +12,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+
+    
+
     return  Scaffold(
       appBar:AppBar(
         title: const Center(child: Text('Peliculas en cines',style: TextStyle(color: Colors.white))),
         elevation: 0,
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.search_rounded,color: Colors.white),)
+          IconButton(onPressed: ()=>showSearch(context: context,delegate: MovieSearchDelegate()), icon: const Icon(Icons.search_rounded,color: Colors.white),)
         ],
       ),
       
@@ -19,12 +30,8 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CardSwiper(),
-              MovieSlider(),
-              MovieSlider(),
-              MovieSlider(),
-              MovieSlider(),
-              MovieSlider(),
+              CardSwiper(movies : moviesProvider.onDisplayMovies),
+              MovieSlider(movies : moviesProvider.popularMovies, title: 'Populares',onNextPage: (){moviesProvider.getPopularMovies();},),
             ],
           ),
         )
